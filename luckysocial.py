@@ -64,8 +64,9 @@ def get_social(url):
     }
 
 def get_meta(doc, name):
-    meta = doc.html.find('meta[property="{}"]'.format(name))
+    meta = doc.html.find('meta[name="{}"]'.format(name), first=True)
     if meta:
+        # TODO: create url from bare screen name
         return meta.attrs['content']
     else:
         return None
