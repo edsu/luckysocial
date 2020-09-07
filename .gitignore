@@ -3,3 +3,4 @@ Pipfile*
 .eggs
 luckysocial.egg-info
 *.csv
+dist
