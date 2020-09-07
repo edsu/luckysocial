@@ -1,9 +1,8 @@
 # luckysocial
 
-This is a small utility that will read a given CSV that has a column called
-*name* in it (there can be others as well) and will write out a new CSV that
-includes all the old columns and new ones for twitter, facebook, instagram,
-youtube, and rss.
+This is a small utility that will read a given CSV that has a name in it (there
+can be others as well) and will write out a new CSV that includes all the old
+columns and new ones for twitter, facebook, instagram, youtube, and rss.
 
 The program looks up the name on Google and uses the top ranked result as the
 homepage for the name, and then looks for social media accounts on the homepage.
@@ -25,3 +24,12 @@ Then you can generate a file by giving it an input file (remember it must have a
     ./luckysocial.py data.csv
 
 After it finishes you should see a data-new.csv file with the new columns.
+
+If you have a differently named name column you can use the --name-col option:
+
+    ./luckysocial.py --name-col "Org Name" data.csv
+
+If you happen to know the homepage of the organization already and want to skip
+the Google lookup you can use the `--url` parameter:
+
+    ./luckysocial.py --url-col "Web Locationn" data.csv

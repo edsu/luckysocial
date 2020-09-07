@@ -1,2 +1,5 @@
 __pycache*
 Pipfile*
+.eggs
+luckysocial.egg-info
+*.csv
