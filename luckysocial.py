@@ -91,7 +91,7 @@ def get_social(url):
         "facebook": find_url(doc, r".*facebook.com/([a-z0-9_]+)/?$", "https://www.facebook.com/"),
         "instagram": find_url(doc, r".*instagram.com/([a-z0-9_]+)/?$", "https://www.instagram.com/"),
         "youtube": find_url(doc, r".*youtube.com/user/([a-z0-9_]+)/?$", "https://www.youtube.com/user/"),
-        "rss": get_rss(doc)
+        "rss": get_rss(doc, url)
     }
 
 def get_meta(doc, name):
@@ -113,7 +113,7 @@ def find_url(doc, pattern, prefix, ignore=[]):
     else:
         return None
 
-def get_rss(doc):
+def get_rss(doc, url):
     links = doc.html.find('head link[rel="alternate"]')
     for link in links:
         link_type = link.attrs.get('type')
@@ -122,7 +122,10 @@ def get_rss(doc):
             return None
 
         if ('atom' in link_type or 'rss' in link_type) and 'comments' not in href:
-            return link.attrs['href']
+            feed_url = link.attrs['href']
+            if not feed_url.startswith('http'):
+                feed_url = url + feed_url
+            return feed_url
     return None
 
 def print_info(info):

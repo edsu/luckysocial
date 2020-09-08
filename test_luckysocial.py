@@ -32,3 +32,9 @@ def test_meta():
     url = "https://alaskabehavioralhealth.org/"
     doc = http.get(url)
     assert luckysocial.get_meta(doc, 'twitter:creator') == "https://twitter.com/AnchCMHS"
+
+
+def test_relative_feed_url():
+    url = 'https://www.homewardva.org'
+    doc = http.get(url)
+    assert luckysocial.get_rss(doc, url) == 'https://www.homewardva.org/?format=feed&type=rss'

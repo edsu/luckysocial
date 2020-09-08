@@ -5,7 +5,7 @@ with open("README.md") as f:
 
 setup(
     name = 'luckysocial',
-    version = '0.0.4',
+    version = '0.0.5',
     author = 'Ed Summers',
     author_email = 'ehs@pobox.com',
     url = 'https://github.com/edsu/luckysocial',
