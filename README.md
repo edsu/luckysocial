@@ -26,10 +26,11 @@ If you want to look up information about a single name you can:
 
     % luckysocial "uc santa barbara"
 
-    name: uc santa barbara homepage: https://www.ucsb.edu/ twitter:
-    https://twitter.com/ucsantabarbara facebook:
-    https://www.facebook.com/ucsantabarbara instagram:
-    https://www.instagram.com/ucsantabarbara
+    name: uc santa barbara
+    homepage: https://www.ucsb.edu/
+    twitter: https://twitter.com/ucsantabarbara
+    facebook: https://www.facebook.com/ucsantabarbara
+    instagram: https://www.instagram.com/ucsantabarbara
 
 Or you can annotate a CSV file by giving it the path to your CSV file (it will
 look for a `name` column).
