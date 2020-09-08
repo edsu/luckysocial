@@ -6,9 +6,12 @@ import csv
 import sys
 import time
 import random
+import urllib3
 import argparse
+import requests
 import collections
 import requests_html
+
 
 def main():
     parser = argparse.ArgumentParser(description="look up social media accounts")
@@ -20,10 +23,13 @@ def main():
     # if a name was passed in as input print what we know about it and exit
 
     if not os.path.isfile(args.input):
-        info = {"name": args.input}
-        info.update(lookup(args.input))
-        if info:
-            print_info(info)
+        if args.input.startswith('http'):
+            info = {"homepage": args.input}
+            info.update(get_social(args.input))
+        else:
+            info = {"name": args.input}
+            info.update(lookup(args.input))
+        print_info(info)
         print()
         sys.exit()
 
@@ -76,7 +82,7 @@ def get_social(url):
         url = 'http://' + url
 
     try:
-        doc = http.get(url)
+        doc = http.get(url, allow_redirects=True)
     except Exception as e:
         return no_result
 
@@ -110,7 +116,12 @@ def find_url(doc, pattern, prefix, ignore=[]):
 def get_rss(doc):
     links = doc.html.find('head link[rel="alternate"]')
     for link in links:
-        if 'href' in link.attrs and 'comments' not in link.attrs['href']:
+        link_type = link.attrs.get('type')
+        href = link.attrs.get('href')
+        if not link_type or not href:
+            return None
+
+        if ('atom' in link_type or 'rss' in link_type) and 'comments' not in href:
             return link.attrs['href']
     return None
 
@@ -120,7 +131,11 @@ def print_info(info):
         if v:
             print('{}: {}'.format(k, v))
 
+# a user-agent to use for contacting google
 ua = "Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36"
+
+# lower ssl security level for poorly configured websites
+requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL:@SECLEVEL=1'
 
 http = requests_html.HTMLSession()
 new_fields = ["homepage", "twitter", "facebook", "instagram", "youtube", "rss"]
