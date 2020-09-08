@@ -10,6 +10,7 @@ import urllib3
 import argparse
 import requests
 import collections
+import urllib.parse
 import requests_html
 
 
@@ -124,7 +125,7 @@ def get_rss(doc, url):
         if ('atom' in link_type or 'rss' in link_type) and 'comments' not in href:
             feed_url = link.attrs['href']
             if not feed_url.startswith('http'):
-                feed_url = url + feed_url
+                feed_url = urllib.parse.urljoin(url, feed_url)
             return feed_url
     return None
 
