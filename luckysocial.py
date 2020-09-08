@@ -88,7 +88,7 @@ def get_social(url):
         return no_result
 
     return {
-        "twitter": get_meta(doc, 'twitter:creator') or find_url(doc, r".*twitter.com/(?:#!/)?([a-z0-9_]+)/?$", "https://twitter.com/", ["intent"]),
+        "twitter": get_meta(doc, 'twitter:creator') or find_url(doc, r".*twitter.com/(?:#!/)?([a-z0-9_]+)/?$", "https://twitter.com/", ["intent", "share"]),
         "facebook": find_url(doc, r".*facebook.com/([a-z0-9_]+)/?$", "https://www.facebook.com/"),
         "instagram": find_url(doc, r".*instagram.com/([a-z0-9_]+)/?$", "https://www.instagram.com/"),
         "youtube": find_url(doc, r".*youtube.com/user/([a-z0-9_]+)/?$", "https://www.youtube.com/user/"),

@@ -43,10 +43,10 @@ If you have a differently named name column you can use the --name-col option:
 
     luckysocial --name-col "Org Name" data.csv
 
-If you happen to know the homepage of the organization already and want to skip
-the Google lookup you can use the `--url-col` parameter:
+If you happen to know the homepage for the name already and want to skip the
+Google lookup you can use the `--url-col` parameter:
 
-    ./luckysocial.py --url-col "Web Locationn" data.csv
+    luckysocial --url-col "Web Locationn" data.csv
 
 ## Develop
 
