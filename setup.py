@@ -11,6 +11,7 @@ setup(
     url = 'https://github.com/edsu/luckysocial',
     py_modules = ['luckysocial',],
     description = 'lookup social media accounts for names',
+    license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',
     install_requires = ['requests_html'],
