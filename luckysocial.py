@@ -68,9 +68,9 @@ def get_homepage(org_name):
     url = "https://google.com/search"
     resp = http.get(url, params={"q": org_name}, headers={"User-Agent": ua})
     resp.html.render()
-    links = resp.html.find("div.r a")
-    if len(links) > 0:
-        return links[0].attrs["href"]
+    cite = resp.html.find('div.g cite', first=True)
+    if cite:
+        return 'https://' + cite.text.split()[0]
     else:
         return None
 
@@ -88,7 +88,7 @@ def get_social(url):
         return no_result
 
     return {
-        "twitter": get_meta(doc, 'twitter:creator') or find_url(doc, r".*twitter.com/(?:#!/)?([a-z0-9_]+)/?$", "https://twitter.com/", ["intent", "share"]),
+        "twitter": get_meta(doc, 'twitter:site') or get_meta(doc, 'twitter:creator') or find_url(doc, r".*twitter.com/(?:#!/)?([a-z0-9_]+)/?$", "https://twitter.com/", ["intent", "share"]),
         "facebook": find_url(doc, r".*facebook.com/([a-z0-9_]+)/?$", "https://www.facebook.com/"),
         "instagram": find_url(doc, r".*instagram.com/([a-z0-9_]+)/?$", "https://www.instagram.com/"),
         "youtube": find_url(doc, r".*youtube.com/user/([a-z0-9_]+)/?$", "https://www.youtube.com/user/"),
